@@ -17,19 +17,19 @@ public interface PostService {
 	String deletePostById(long postId);
 	
 	//getById
-	Post getByPost(long postId);
+	PostDto getByPostId(long postId);
 	
 	//getAll
-	List<Post> getAllPost();
+	List<PostDto> getAllPost();
 	
 	//getByCategory
-	List<Post> getPostByCategory(long categoryId);
+	List<PostDto> getPostByCategory(long categoryId);
 	
 	//getByUser
-	List<Post> getPostByUser(long userId);
+	List<PostDto> getPostByUser(long userId);
 	
 	//getByPost
-	List<Post> searchByPost(String keyword);
+	List<PostDto> searchByPost(String keyword);
 	
 
 }

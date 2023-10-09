@@ -2,7 +2,8 @@ package com.example.demo.service;
 
 
  import java.util.List;
-
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.Date;
 
 import org.modelmapper.ModelMapper;
@@ -75,31 +76,40 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public Post getByPost(long postId) {
+	public PostDto getByPostId(long postId) {
 		// TODO Auto-generated method stub
-		return null;
+		Post post = this.postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundExecption("Post", "Post id", postId));
+		return this.modelMapper.map(post, PostDto.class);
 	}
 
 	@Override
-	public List<Post> getAllPost() {
+	public List<PostDto> getAllPost() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Post> findAll = this.postRepository.findAll();
+		List<PostDto> postDto = findAll.stream().map((post)->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return postDto;
 	}
 
 	@Override
-	public List<Post> getPostByCategory(long categoryId) {
+	public List<PostDto> getPostByCategory(long categoryId) {
 		// TODO Auto-generated method stub
-		return null;
+		Category category = categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundExecption("category", "category id", categoryId));
+		List<Category> findByCategory = this.postRepository.findByCategory(category);
+		List<PostDto> collect = findByCategory.stream().map(post->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return collect;
 	}
 
 	@Override
-	public List<Post> getPostByUser(long userId) {
+	public List<PostDto> getPostByUser(long userId) {
 		// TODO Auto-generated method stub
-		return null;
+		User userCategory = this.userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundExecption("User", "user Id", userId));
+		List<User> findByUser = this.postRepository.findByUser(userCategory);
+		List<PostDto> postDto = findByUser.stream().map(post->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return postDto;
 	}
 
 	@Override
-	public List<Post> searchByPost(String keyword) {
+	public List<PostDto> searchByPost(String keyword) {
 		// TODO Auto-generated method stub
 		return null;
 	}

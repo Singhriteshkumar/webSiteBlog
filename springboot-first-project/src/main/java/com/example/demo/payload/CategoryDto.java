@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 public class CategoryDto {
 	
-	private Integer categoryId;
+	private long categoryId;
 	
 	@NotBlank
 	@Size(min = 5)
@@ -21,11 +21,11 @@ public class CategoryDto {
 	@Size(min = 10, max = 50)
 	private String categoryDescription;
 
-	public Integer getCategoryId() {
+	public long getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(Integer categoryId) {
+	public void setCategoryId(long categoryId) {
 		this.categoryId = categoryId;
 	}
 
