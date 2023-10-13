@@ -93,9 +93,9 @@ public class PostServiceImpl implements PostService{
 	@Override
 	public List<PostDto> getPostByCategory(long categoryId) {
 		// TODO Auto-generated method stub
-		Category category = categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundExecption("category", "category id", categoryId));
-		List<Category> findByCategory = this.postRepository.findByCategory(category);
-		List<PostDto> collect = findByCategory.stream().map(post->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		Category category = this.categoryRepository.findById(categoryId).orElseThrow(()->new ResourceNotFoundExecption("category", "category id", categoryId));
+		List<Post> findByCategory = this.postRepository.findByCategory(category);
+		List<PostDto> collect = findByCategory.stream().map((post)->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
 		return collect;
 	}
 
@@ -103,15 +103,18 @@ public class PostServiceImpl implements PostService{
 	public List<PostDto> getPostByUser(long userId) {
 		// TODO Auto-generated method stub
 		User userCategory = this.userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundExecption("User", "user Id", userId));
-		List<User> findByUser = this.postRepository.findByUser(userCategory);
-		List<PostDto> postDto = findByUser.stream().map(post->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		List<Post> findByUser = this.postRepository.findByUser(userCategory);
+		List<PostDto> postDto = findByUser.stream().map((post)->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
 		return postDto;
 	}
 
 	@Override
-	public List<PostDto> searchByPost(String keyword) {
+	public List<PostDto> searchByPostTitle(String keyword) {
 		// TODO Auto-generated method stub
-		return null;
+		List<Post> findByPostTitle = this.postRepository.findByPostTitle(keyword);//findByPostTitle(keyword)
+		//System.out.println(findByPostTitle.);
+		List<PostDto> postDto = findByPostTitle.stream().map((post)->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+		return postDto;
 	}
 
 

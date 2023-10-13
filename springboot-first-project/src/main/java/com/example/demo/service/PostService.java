@@ -2,34 +2,37 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.demo.enties.Post;
 import com.example.demo.payload.PostDto;
 
+@Service
 public interface PostService {
 	
 	//create
 	PostDto createPost(PostDto postDto, long userId, long categotyId);
 	
-	//update
+	//updateByPostId
 	PostDto updatePostById(PostDto postDto, long postId);
 	
-	//delete
+	//deleteByPostId
 	String deletePostById(long postId);
 	
-	//getById
+	//getPostById
 	PostDto getByPostId(long postId);
 	
-	//getAll
+	//getPostAll
 	List<PostDto> getAllPost();
 	
-	//getByCategory
+	//getPostByCategory
 	List<PostDto> getPostByCategory(long categoryId);
 	
-	//getByUser
+	//getPostByUser
 	List<PostDto> getPostByUser(long userId);
 	
-	//getByPost
-	List<PostDto> searchByPost(String keyword);
+	//getPostByTitle
+	List<PostDto> searchByPostTitle(String keyword);
 	
 
 }
